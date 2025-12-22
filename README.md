@@ -30,6 +30,7 @@ podman run \
   --env MARIADB_USER=nth \
   --env MARIADB_PASSWORD=123 \
   --env MARIADB_ROOT_PASSWORD=123 \
+  -p 3306:3306 \
   mariadb:10.11 \
   --character-set-server=utf8mb4 \
   --collation-server=utf8mb4_unicode_ci \
@@ -45,7 +46,7 @@ Cài đặt Redis Cache
 podman run -d \
   --name redis-cache \
   --network frappe \
-  -p 13000:6379 \
+  -p 6379:6379 \
   docker.io/library/redis:7 \
   --maxmemory 256mb \
   --maxmemory-policy allkeys-lru
@@ -59,7 +60,7 @@ podman volume create redis-queue-data
 podman run -d \
   --name redis-queue \
   --network frappe \
-  -p 11000:6379 \
+  -p 6380:6379 \
   -v redis-queue-data:/data \
   docker.io/library/redis:7 \
   --maxmemory 512mb \
@@ -72,7 +73,7 @@ Cài Redis Socket IO
 podman run -d \
   --name redis-socketio \
   --network frappe-net \
-  -p 12000:6379 \
+  -p 6381:6379 \
   docker.io/library/redis:7 \
   --maxmemory 128mb \
   --maxmemory-policy allkeys-lru
@@ -80,7 +81,17 @@ podman run -d \
 
 ## Cài đặt Frappe HR
 
-Encode Base 64 chuỗi JSON cho phục vụ build arg `APPS_JSON_BASE64`
+Build image
+
+```bash
+podman build \
+ --build-arg=FRAPPE_PATH=https://github.com/frappe/frappe \
+ --build-arg=FRAPPE_BRANCH=version-15 \
+ --build-arg=APPS_JSON_BASE64=WwogIHsKICAgICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2ZyYXBwZS9ocm1zIiwKICAgICJicmFuY2giOiAidmVyc2lvbi0xNSIKICB9Cl0= \
+ --tag=frappe-hr:15 .
+```
+
+Giá trị của tham số `APPS_JSON_BASE64` trong lệnh build trên là base64 từ chuỗi JSON sau:
 
 ```json
 [
@@ -91,15 +102,7 @@ Encode Base 64 chuỗi JSON cho phục vụ build arg `APPS_JSON_BASE64`
 ]
 ```
 
-Build image
 
-```bash
-podman build \
- --build-arg=FRAPPE_PATH=https://github.com/frappe/frappe \
- --build-arg=FRAPPE_BRANCH=version-15 \
- --build-arg=APPS_JSON_BASE64=WwogIHsKICAgICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2ZyYXBwZS9ocm1zIiwKICAgICJicmFuY2giOiAidmVyc2lvbi0xNSIKICB9Cl0= \
- --tag=custom:15 .
-```
 
 
 
@@ -110,3 +113,13 @@ podman build \
 Frappe HR Docker Compose: https://github.com/frappe/hrms/tree/develop/docker
 
 Frappe Docker: https://github.com/frappe/frappe_docker
+
+
+Tạo compose file
+
+```bash
+podman compose --env-file prod.env \
+    -f compose.yaml \
+    -f overrides/compose.noproxy.yaml \
+    config > compose.custom.yaml
+```
