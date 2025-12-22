@@ -78,6 +78,31 @@ podman run -d \
   --maxmemory-policy allkeys-lru
 ```
 
+## Cài đặt Frappe HR
+
+Encode Base 64 chuỗi JSON cho phục vụ build arg `APPS_JSON_BASE64`
+
+```json
+[
+  {
+    "url": "https://github.com/frappe/hrms",
+    "branch": "version-15"
+  }
+]
+```
+
+Build image
+
+```bash
+podman build \
+ --build-arg=FRAPPE_PATH=https://github.com/frappe/frappe \
+ --build-arg=FRAPPE_BRANCH=version-15 \
+ --build-arg=APPS_JSON_BASE64=WwogIHsKICAgICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2ZyYXBwZS9ocm1zIiwKICAgICJicmFuY2giOiAidmVyc2lvbi0xNSIKICB9Cl0= \
+ --tag=custom:15 .
+```
+
+
+
 
 
 ## Tham khảo
