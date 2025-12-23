@@ -138,6 +138,8 @@ FROM base AS backend
 USER frappe
 
 COPY --from=builder --chown=frappe:frappe /home/frappe/frappe-bench /home/frappe/frappe-bench
+COPY init-hrms.sh /home/frappe/frappe-bench/
+COPY create-site-hrms.sh /home/frappe/frappe-bench/
 
 WORKDIR /home/frappe/frappe-bench
 
@@ -146,7 +148,6 @@ VOLUME [ \
   "/home/frappe/frappe-bench/sites/assets", \
   "/home/frappe/frappe-bench/logs" \
 ]
-
 CMD [ \
   "/home/frappe/frappe-bench/env/bin/gunicorn", \
   "--chdir=/home/frappe/frappe-bench/sites", \

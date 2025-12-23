@@ -5,19 +5,18 @@ Các thành phần cần cài đặt:
 * Redis v7 (Cache, Queue, và SockerIO)
 * Frappe HR
 
-
-## Cài đặt MariaDB
-
-Tạo Volumn trên podman để lưu dữ liệu:
-
-```bash
-podman volume create mariadb-data
-```
-
 Tạo network nếu chưa có:
 
 ```bash
 podman network create frappe
+```
+
+## Cài đặt MariaDB
+
+Tạo Volumn trên podman để lưu dữ liệu
+
+```bash
+podman volume create mariadb-data
 ```
 
 Chạy MariaDB
@@ -27,7 +26,7 @@ podman run \
   --detach \
   --network frappe \
   --name mariadb \
-  --env MARIADB_USER=nth \
+  --env MARIADB_USER=frappe_hrms \
   --env MARIADB_PASSWORD=123 \
   --env MARIADB_ROOT_PASSWORD=123 \
   -p 3306:3306 \
@@ -56,11 +55,14 @@ Cài đặt Redis Queue
 
 ```bash
 podman volume create redis-queue-data
+```
+
+```bash
 
 podman run -d \
   --name redis-queue \
   --network frappe \
-  -p 6380:6379 \
+  -p 6379:6379 \
   -v redis-queue-data:/data \
   docker.io/library/redis:7 \
   --maxmemory 512mb \
@@ -72,8 +74,8 @@ Cài Redis Socket IO
 ```bash
 podman run -d \
   --name redis-socketio \
-  --network frappe-net \
-  -p 6381:6379 \
+  --network frappe \
+  -p 6379:6379 \
   docker.io/library/redis:7 \
   --maxmemory 128mb \
   --maxmemory-policy allkeys-lru
@@ -102,10 +104,73 @@ Giá trị của tham số `APPS_JSON_BASE64` trong lệnh build trên là base6
 ]
 ```
 
+Thiết lập ứng dụng trước khi cài
 
+```bash
+podman volumne create frappe-sites
+```
 
+```bash
+podman run --rm -it \
+  --network frappe \
+  -e MARIADB_HOST=mariadb \
+  -e MARIADB_PORT=3306 \
+  -e REDIS_CACHE=redis-cache:6379 \
+  -e REDIS_QUEUE=redis-queue:6379 \
+  -e REDIS_SOCKETIO=redis-socketio:6379 \
+  -p 8000:8000 \
+  -p 9000:9000 \
+  -v frappe-sites:/home/frappe/frappe-bench/sites \
+  frappe-hr:15 \
+  /home/frappe/frappe-bench/init-hrms.sh
+```
 
+Cài đặt Web
 
+```bash
+podman run -d \
+  --network frappe \
+  --name frappe-web \
+  -e SITE_NAME=hr.digigov.vn \
+  -v frappe-sites:/home/frappe/frappe-bench/sites \
+  frappe-hr:15
+```
+
+Cài đặt Worker
+
+```bash
+podman run -d \
+  --network frappe \
+  --name frappe-worker \
+  -e SITE_NAME=hr.digigov.vn \
+  -v frappe-sites:/home/frappe/frappe-bench/sites \
+  frappe-hr:15 \
+  bench worker
+```
+
+Cài đặt Scheduler
+
+```bash
+podman run -d \
+  --network frappe \
+  --name frappe-scheduler \
+  -e SITE_NAME=hr.digigov.vn \
+  -v frappe-sites:/home/frappe/frappe-bench/sites \
+  frappe-hr:15 \
+  bench schedule
+```
+
+Cài đặt Websocket
+
+```bash
+podman run -d \
+  --network frappe \
+  --name frappe-websocket \
+  -e SITE_NAME=hr.digigov.vn \
+  -v frappe-sites:/home/frappe/frappe-bench/sites \
+  frappe-hr:15 \
+  node /home/frappe/frappe-bench/apps/frappe/socketio.js
+```
 
 
 ## Tham khảo
@@ -114,12 +179,4 @@ Frappe HR Docker Compose: https://github.com/frappe/hrms/tree/develop/docker
 
 Frappe Docker: https://github.com/frappe/frappe_docker
 
-
-Tạo compose file
-
-```bash
-podman compose --env-file prod.env \
-    -f compose.yaml \
-    -f overrides/compose.noproxy.yaml \
-    config > compose.custom.yaml
-```
+Frappe Framework Configuration: https://docs.frappe.io/framework/v15/user/en/basics/site_config
