@@ -121,7 +121,7 @@ RUN export APP_INSTALL_ARGS="" && \
   if [ -n "${APPS_JSON_BASE64}" ]; then \
     export APP_INSTALL_ARGS="--apps_path=/opt/frappe/apps.json"; \
   fi && \
-  bench init ${APP_INSTALL_ARGS}\
+  bench init ${APP_INSTALL_ARGS} \
     --frappe-branch=${FRAPPE_BRANCH} \
     --frappe-path=${FRAPPE_PATH} \
     --no-procfile \
@@ -133,13 +133,20 @@ RUN export APP_INSTALL_ARGS="" && \
   echo "{}" > sites/common_site_config.json && \
   find apps -mindepth 1 -path "*/.git" | xargs rm -fr
 
+FROM base AS init-scripts
+
+COPY init-hrms.sh /opt/frappe/init-hrms.sh
+
+RUN chmod 755 /opt/frappe/init-hrms.sh \
+    && chown frappe:frappe /opt/frappe/init-hrms.sh
+
 FROM base AS backend
+
+COPY --from=init-scripts /opt/frappe/init-hrms.sh /opt/frappe/init-hrms.sh
 
 USER frappe
 
 COPY --from=builder --chown=frappe:frappe /home/frappe/frappe-bench /home/frappe/frappe-bench
-COPY init-hrms.sh /home/frappe/frappe-bench/
-COPY create-site-hrms.sh /home/frappe/frappe-bench/
 
 WORKDIR /home/frappe/frappe-bench
 
