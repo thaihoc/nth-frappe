@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frappe-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frappe-nginx
+  template:
+    metadata:
+      labels:
+        app: frappe-nginx
+    spec:
+      containers:
+        - name: frappe-nginx
+          image: frappe:15
+          command:
+            - nginx-entrypoint.sh
+          ports:
+            - containerPort: 8080
+          env:
+            - name: BACKEND
+              value: frappe-web:8000
+            - name: SOCKETIO
+              value: frappe-websocket:9000
+            - name: CLIENT_MAX_BODY_SIZE
+              value: "50m"
+            - name: PROXY_READ_TIMEOUT
+              value: "120"
+            - name: UPSTREAM_REAL_IP_ADDRESS
+              value: "127.0.0.1"
+            - name: UPSTREAM_REAL_IP_HEADER
+              value: "X-Forwarded-For"
+            - name: UPSTREAM_REAL_IP_RECURSIVE
+              value: "off"
+          volumeMounts:
+            - name: frappe-sites
+              mountPath: /home/frappe/frappe-bench/sites
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "300m"
+              memory: "512Mi"
+      volumes:
+        - name: frappe-sites
+          persistentVolumeClaim:
+            claimName: frappe-sites-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frappe-nginx
+spec:
+  type: NodePort
+  selector:
+    app: frappe-nginx
+  ports:
+    - port: 8080
+      targetPort: 8080

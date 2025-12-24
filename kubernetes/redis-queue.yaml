@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-queue-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-queue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-queue
+  template:
+    metadata:
+      labels:
+        app: redis-queue
+    spec:
+      containers:
+        - name: redis
+          image: redis:7
+          ports:
+            - containerPort: 6379
+          args:
+            - "--maxmemory"
+            - "512mb"
+            - "--maxmemory-policy"
+            - "noeviction"
+          volumeMounts:
+            - name: redis-queue-data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "300m"
+              memory: "512Mi"
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+        - name: redis-queue-data
+          persistentVolumeClaim:
+            claimName: redis-queue-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-queue
+spec:
+  type: ClusterIP
+  selector:
+    app: redis-queue
+  ports:
+    - port: 6379
+      targetPort: 6379

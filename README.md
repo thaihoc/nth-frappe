@@ -138,7 +138,7 @@ podman run --rm -it \
 
 ### Cài đặt các thành phần ứng dụng
 
-Cài đặt Backend
+Cài đặt Web
 
 ```bash
 podman run -d \

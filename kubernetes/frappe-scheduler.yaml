@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frappe-scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frappe-scheduler
+  template:
+    metadata:
+      labels:
+        app: frappe-scheduler
+    spec:
+      containers:
+        - name: frappe-scheduler
+          image: frappe:15
+          command:
+            - bench
+            - schedule
+          env:
+            - name: SITE_NAME
+              value: doanhnghiep.vn
+          volumeMounts:
+            - name: frappe-sites
+              mountPath: /home/frappe/frappe-bench/sites
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "300m"
+              memory: "512Mi"
+      volumes:
+        - name: frappe-sites
+          persistentVolumeClaim:
+            claimName: frappe-sites-pvc

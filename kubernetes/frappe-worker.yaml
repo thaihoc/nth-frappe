@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frappe-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frappe-worker
+  template:
+    metadata:
+      labels:
+        app: frappe-worker
+    spec:
+      containers:
+        - name: frappe-worker
+          image: frappe:15
+          command:
+            - bench
+            - worker
+          env:
+            - name: SITE_NAME
+              value: doanhnghiep.vn
+          volumeMounts:
+            - name: frappe-sites
+              mountPath: /home/frappe/frappe-bench/sites
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+      volumes:
+        - name: frappe-sites
+          persistentVolumeClaim:
+            claimName: frappe-sites-pvc

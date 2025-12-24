@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frappe-websocket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frappe-websocket
+  template:
+    metadata:
+      labels:
+        app: frappe-websocket
+    spec:
+      containers:
+        - name: frappe-websocket
+          image: frappe:15
+          command:
+            - node
+            - /home/frappe/frappe-bench/apps/frappe/socketio.js
+          ports:
+            - containerPort: 9000
+          env:
+            - name: SITE_NAME
+              value: doanhnghiep.vn
+          volumeMounts:
+            - name: frappe-sites
+              mountPath: /home/frappe/frappe-bench/sites
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "300m"
+              memory: "512Mi"
+      volumes:
+        - name: frappe-sites
+          persistentVolumeClaim:
+            claimName: frappe-sites-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frappe-websocket
+spec:
+  type: ClusterIP
+  selector:
+    app: frappe-websocket
+  ports:
+    - port: 9000
+      targetPort: 9000
