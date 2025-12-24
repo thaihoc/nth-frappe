@@ -3,7 +3,7 @@
 Các thành phần cần cài đặt:
 * MariaDB v10.11
 * Redis v7 (Cache, Queue, và SockerIO)
-* Frappe HR
+* Frappe ERPNext & HRMS
 
 Tạo network nếu chưa có:
 
@@ -81,7 +81,7 @@ podman run -d \
   --maxmemory-policy allkeys-lru
 ```
 
-## Cài đặt Frappe HR
+## Cài đặt Frappe ERPNext & HRMS
 
 ### Build image
 
