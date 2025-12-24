@@ -1,4 +1,4 @@
-# Hướng dẫn cài đặt Frappe HR
+# Hướng dẫn cài đặt Frappe ERPNext và HRMS
 
 Các thành phần cần cài đặt:
 * MariaDB v10.11
@@ -83,7 +83,7 @@ podman run -d \
 
 ## Cài đặt Frappe HR
 
-Build image
+### Build image
 
 ```bash
 podman build \
@@ -108,11 +108,15 @@ Giá trị của tham số `APPS_JSON_BASE64` trong lệnh build trên là base6
 ]
 ```
 
-Thiết lập ứng dụng trước khi cài
+### Thiết lập ứng dụng trước khi cài
+
+Tạo volume lưu cấu hình và resources
 
 ```bash
 podman volume create frappe-sites
 ```
+
+Tạo cấu hình và resources (chỉ chạy một lần)
 
 ```bash
 podman run --rm -it \
@@ -131,6 +135,8 @@ podman run --rm -it \
   frappe-hr:15 \
   /opt/frappe/init-hrms.sh
 ```
+
+### Cài đặt các thành phần ứng dụng
 
 Cài đặt Backend
 
@@ -200,6 +206,7 @@ podman run -d \
   nginx-entrypoint.sh
 ```
 
+Như vậy là bạn đã cài đặt thành công. Truy cập vào đường dẫn `http://hr.digigov.vn:8080` để sử dụng.
 
 ## Tham khảo
 
@@ -208,6 +215,8 @@ Frappe HR Docker Compose: https://github.com/frappe/hrms/tree/develop/docker
 Frappe Docker: https://github.com/frappe/frappe_docker
 
 Frappe Framework Configuration: https://docs.frappe.io/framework/v15/user/en/basics/site_config
+
+## Mẹo xử lý
 
 Thiết lập lại site
 
