@@ -29,7 +29,8 @@ cat > "$SITES_DIR/common_site_config.json" <<EOF
   "redis_cache": "redis://${REDIS_CACHE}",
   "redis_queue": "redis://${REDIS_QUEUE}",
   "redis_socketio": "redis://${REDIS_SOCKETIO}",
-  "socketio_port": 9000
+  "socketio_port": 9000,
+  "db_user_host_login_scope": "%"
 }
 EOF
 

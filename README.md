@@ -132,7 +132,7 @@ podman run --rm -it \
   /opt/frappe/init-hrms.sh
 ```
 
-Cài đặt Web
+Cài đặt Backend
 
 ```bash
 podman run -d \
@@ -181,6 +181,25 @@ podman run -d \
   node /home/frappe/frappe-bench/apps/frappe/socketio.js
 ```
 
+Cài đặt Frontend
+
+```bash
+podman run -d \
+  --network frappe \
+  --name frappe-nginx \
+  -e BACKEND=frappe-web:8000 \
+  -e CLIENT_MAX_BODY_SIZE=50m \
+  -e PROXY_READ_TIMEOUT=120 \
+  -e SOCKETIO=frappe-websocket:9000 \
+  -e UPSTREAM_REAL_IP_ADDRESS=127.0.0.1 \
+  -e UPSTREAM_REAL_IP_HEADER=X-Forwarded-For \
+  -e UPSTREAM_REAL_IP_RECURSIVE=off \
+  -p 8080:8080 \
+  -v frappe-sites:/home/frappe/frappe-bench/sites \
+  frappe-hr:15 \
+  nginx-entrypoint.sh
+```
+
 
 ## Tham khảo
 
@@ -196,4 +215,13 @@ Thiết lập lại site
 podman exec -it mariadb mysql -uroot -p123 -e "DROP DATABASE _b533f5fdd65aaf8c;"
 
 podman volume rm frappe-sites
+```
+
+Xử lý lỗi user host scope
+
+```sql
+SELECT User, Host FROM mysql.user WHERE User='_3d29114af46bf1a6';
+DROP USER '_3d29114af46bf1a6'@'10.89.1.24';
+CREATE USER '_3d29114af46bf1a6'@'%' IDENTIFIED BY 'NZIZnzx2P0DCevk6'
+GRANT ALL PRIVILEGES ON _3d29114af46bf1a6.* TO '_3d29114af46bf1a6'@'%';GRANsql
 ```
