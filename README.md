@@ -128,7 +128,7 @@ podman run --rm -it \
   -e REDIS_CACHE=redis-cache:6379 \
   -e REDIS_QUEUE=redis-queue:6379 \
   -e REDIS_SOCKETIO=redis-socketio:6379 \
-  -e SITE_NAME=hr.digigov.vn \
+  -e SITE_NAME=doanhnghiep.vn \
   -p 8000:8000 \
   -p 9000:9000 \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
@@ -144,7 +144,7 @@ Cài đặt Backend
 podman run -d \
   --network frappe \
   --name frappe-web \
-  -e SITE_NAME=hr.digigov.vn \
+  -e SITE_NAME=doanhnghiep.vn \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
   -p 8000:8000 \
   frappe:15
@@ -156,7 +156,7 @@ Cài đặt Worker
 podman run -d \
   --network frappe \
   --name frappe-worker \
-  -e SITE_NAME=hr.digigov.vn \
+  -e SITE_NAME=doanhnghiep.vn \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
   frappe:15 \
   bench worker
@@ -168,7 +168,7 @@ Cài đặt Scheduler
 podman run -d \
   --network frappe \
   --name frappe-scheduler \
-  -e SITE_NAME=hr.digigov.vn \
+  -e SITE_NAME=doanhnghiep.vn \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
   frappe:15 \
   bench schedule
@@ -180,7 +180,7 @@ Cài đặt Websocket
 podman run -d \
   --network frappe \
   --name frappe-websocket \
-  -e SITE_NAME=hr.digigov.vn \
+  -e SITE_NAME=doanhnghiep.vn \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
   -p 9000:9000 \
   frappe:15 \
@@ -206,7 +206,7 @@ podman run -d \
   nginx-entrypoint.sh
 ```
 
-Như vậy là bạn đã cài đặt thành công. Truy cập vào đường dẫn `http://hr.digigov.vn:8080` để sử dụng.
+Như vậy là bạn đã cài đặt thành công. Truy cập vào đường dẫn `http://doanhnghiep.vn:8080` để sử dụng.
 
 ## Tham khảo
 
