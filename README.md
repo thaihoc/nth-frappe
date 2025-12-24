@@ -3,7 +3,7 @@
 Các thành phần cần cài đặt:
 * MariaDB v10.11
 * Redis v7 (Cache, Queue, và SockerIO)
-* Frappe ERPNext & HRMS
+* Frappe ERPNext & HRMS v15
 
 Tạo network nếu chưa có:
 
@@ -90,7 +90,7 @@ podman build \
  --build-arg=FRAPPE_PATH=https://github.com/frappe/frappe \
  --build-arg=FRAPPE_BRANCH=version-15 \
  --build-arg=APPS_JSON_BASE64=WwogIHsKICAgICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2ZyYXBwZS9lcnBuZXh0IiwKICAgICJicmFuY2giOiAidmVyc2lvbi0xNSIKICB9LAogIHsKICAgICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2ZyYXBwZS9ocm1zIiwKICAgICJicmFuY2giOiAidmVyc2lvbi0xNSIKICB9Cl0= \
- --tag=frappe-hr:15 .
+ --tag=frappe:15 .
 ```
 
 Giá trị của tham số `APPS_JSON_BASE64` trong lệnh build trên là base64 từ chuỗi JSON sau:
@@ -124,7 +124,7 @@ podman run --rm -it \
   -e DB_HOST=mariadb \
   -e DB_PORT=3306 \
   -e DB_ROOT_PASSWORD=123 \
-  -e ADMIN_PASSWORD=admin123 \
+  -e ADMIN_PASSWORD=121212 \
   -e REDIS_CACHE=redis-cache:6379 \
   -e REDIS_QUEUE=redis-queue:6379 \
   -e REDIS_SOCKETIO=redis-socketio:6379 \
@@ -132,8 +132,8 @@ podman run --rm -it \
   -p 8000:8000 \
   -p 9000:9000 \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
-  frappe-hr:15 \
-  /opt/frappe/init-hrms.sh
+  frappe:15 \
+  /opt/frappe/init-scripts.sh
 ```
 
 ### Cài đặt các thành phần ứng dụng
@@ -147,7 +147,7 @@ podman run -d \
   -e SITE_NAME=hr.digigov.vn \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
   -p 8000:8000 \
-  frappe-hr:15
+  frappe:15
 ```
 
 Cài đặt Worker
@@ -158,7 +158,7 @@ podman run -d \
   --name frappe-worker \
   -e SITE_NAME=hr.digigov.vn \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
-  frappe-hr:15 \
+  frappe:15 \
   bench worker
 ```
 
@@ -170,7 +170,7 @@ podman run -d \
   --name frappe-scheduler \
   -e SITE_NAME=hr.digigov.vn \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
-  frappe-hr:15 \
+  frappe:15 \
   bench schedule
 ```
 
@@ -183,7 +183,7 @@ podman run -d \
   -e SITE_NAME=hr.digigov.vn \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
   -p 9000:9000 \
-  frappe-hr:15 \
+  frappe:15 \
   node /home/frappe/frappe-bench/apps/frappe/socketio.js
 ```
 
@@ -202,7 +202,7 @@ podman run -d \
   -e UPSTREAM_REAL_IP_RECURSIVE=off \
   -p 8080:8080 \
   -v frappe-sites:/home/frappe/frappe-bench/sites \
-  frappe-hr:15 \
+  frappe:15 \
   nginx-entrypoint.sh
 ```
 
