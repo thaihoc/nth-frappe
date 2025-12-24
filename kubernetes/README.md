@@ -17,7 +17,7 @@ kubectl apply -f frappe-init.yaml
 kubectl apply \
     -f frappe-worker.yaml \
     -f frappe-scheduler.yaml \
-    -f frappe-we.yaml \
+    -f frappe-web.yaml \
     -f frappe-websocket.yaml \
     -f frappe-frontend.yaml
 ```
