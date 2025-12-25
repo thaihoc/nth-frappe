@@ -61,6 +61,11 @@ spec:
               port: 3306
             initialDelaySeconds: 30
             periodSeconds: 10
+          securityContext:
+            runAsNonRoot: false
+            readOnlyRootFilesystem: false
+            privileged: false
+            allowPrivilegeEscalation: false
       volumes:
         - name: mariadb-data
           persistentVolumeClaim:
