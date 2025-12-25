@@ -23,3 +23,24 @@ kubectl apply \
     -f frappe-websocket.yaml \
     -f frappe-frontend.yaml
 ```
+
+Chạy bằng github raw URL
+
+```bash
+# DB & Redis
+kubectl apply -n applications \
+    -f https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/kubernetes/mariadb.yaml \
+    -f https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/kubernetes/redis-cache.yaml \
+    -f https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/kubernetes/redis-queue.yaml \
+    -f https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/kubernetes/redis-socketio.yaml
+
+kubectl apply -n applications \
+    -f https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/kubernetes/frappe-init.yaml
+
+kubectl apply -n applications \
+    -f https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/kubernetes/frappe-worker.yaml \
+    -f https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/kubernetes/frappe-scheduler.yaml \
+    -f https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/kubernetes/frappe-web.yaml \
+    -f https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/kubernetes/frappe-websocket.yaml \
+    -f https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/kubernetes/frappe-frontend.yaml
+```
