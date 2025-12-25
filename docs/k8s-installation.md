@@ -1,5 +1,7 @@
 # Hướng dẫn cài đặt Frappe (ERPNext + HRMS) trên K8s
 
+Build docker image: [Build docker image](build-image.md)
+
 Lần lượt run các lệnh sau
 
 ```bash
@@ -13,7 +15,7 @@ kubectl apply \
 # Init scripts
 kubectl apply -f frappe-init.yaml
 
-# App stacks
+# App stack
 kubectl apply \
     -f frappe-worker.yaml \
     -f frappe-scheduler.yaml \

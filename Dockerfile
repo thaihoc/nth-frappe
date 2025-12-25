@@ -135,7 +135,7 @@ RUN export APP_INSTALL_ARGS="" && \
 
 FROM base AS init-scripts
 
-COPY init-hrms.sh /opt/frappe/init-scripts.sh
+COPY init-scripts.sh /opt/frappe/init-scripts.sh
 
 RUN chmod 755 /opt/frappe/init-scripts.sh \
     && chown frappe:frappe /opt/frappe/init-scripts.sh
