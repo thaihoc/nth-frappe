@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-cache
+  labels:
+    site: dn.digigov.vn
 spec:
   replicas: 1
   selector:
@@ -11,10 +13,17 @@ spec:
     metadata:
       labels:
         app: redis-cache
+        site: dn.digigov.vn
     spec:
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 999
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: redis
-          image: redis:7
+          image: redis:7.2
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 6379
           args:
@@ -22,6 +31,9 @@ spec:
             - "256mb"
             - "--maxmemory-policy"
             - "allkeys-lru"
+          env:
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "yes"
           resources:
             requests:
               cpu: "50m"
@@ -39,11 +51,20 @@ spec:
               port: 6379
             initialDelaySeconds: 5
             periodSeconds: 10
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: redis-cache
+  labels:
+    site: dn.digigov.vn
 spec:
   type: ClusterIP
   selector:

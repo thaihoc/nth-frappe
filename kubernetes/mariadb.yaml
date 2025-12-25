@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: mariadb-secret
+  labels:
+    site: dn.digigov.vn
 type: Opaque
 stringData:
   MARIADB_ROOT_PASSWORD: "123"
@@ -12,6 +14,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mariadb-pvc
+  labels:
+    site: dn.digigov.vn
 spec:
   accessModes:
     - ReadWriteOnce
@@ -24,6 +28,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mariadb
+  labels:
+    site: dn.digigov.vn
 spec:
   replicas: 1
   selector:
@@ -33,7 +39,13 @@ spec:
     metadata:
       labels:
         app: mariadb
+        site: dn.digigov.vn
     spec:
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 999
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: mariadb
           image: mariadb:10.11
@@ -62,15 +74,12 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
           securityContext:
-            runAsNonRoot: false
-            readOnlyRootFilesystem: false
-            privileged: false
+            runAsUser: 999
+            runAsGroup: 999
             allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
-            seccompProfile:
-              type: RuntimeDefault
       volumes:
         - name: mariadb-data
           persistentVolumeClaim:
@@ -80,6 +89,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mariadb
+  labels:
+    site: dn.digigov.vn
 spec:
   type: ClusterIP
   selector:
