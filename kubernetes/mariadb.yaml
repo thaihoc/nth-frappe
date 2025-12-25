@@ -66,6 +66,11 @@ spec:
             readOnlyRootFilesystem: false
             privileged: false
             allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
       volumes:
         - name: mariadb-data
           persistentVolumeClaim:
