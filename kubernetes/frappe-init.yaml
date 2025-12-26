@@ -2,26 +2,36 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: frappe-sites-pvc
+  labels:
+    site: dn.digigov.vn
 spec:
   accessModes:
     - ReadWriteOnce
   storageClassName: longhorn
   resources:
     requests:
-      storage: 10Gi
+      storage: 5Gi
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: frappe-init
+  labels:
+    site: dn.digigov.vn
 spec:
   backoffLimit: 0
   template:
     spec:
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
       restartPolicy: Never
       containers:
         - name: frappe-init
-          image: frappe:15
+          image: ecr.digigov.vn/dns/frappe:16rc1
+          imagePullPolicy: Always
           command:
             - /opt/frappe/init-scripts.sh
           env:
@@ -40,10 +50,17 @@ spec:
             - name: REDIS_SOCKETIO
               value: redis-socketio:6379
             - name: SITE_NAME
-              value: doanhnghiep.vn
+              value: doanhnghiepso.digigov.vn
           volumeMounts:
             - name: frappe-sites
               mountPath: /home/frappe/frappe-bench/sites
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
       volumes:
         - name: frappe-sites
           persistentVolumeClaim:

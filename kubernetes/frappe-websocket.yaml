@@ -12,9 +12,14 @@ spec:
       labels:
         app: frappe-websocket
     spec:
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: frappe-websocket
-          image: frappe:15
+          image: ecr.digigov.vn/dns/frappe:16rc1
           command:
             - node
             - /home/frappe/frappe-bench/apps/frappe/socketio.js
@@ -22,17 +27,38 @@ spec:
             - containerPort: 9000
           env:
             - name: SITE_NAME
-              value: doanhnghiep.vn
+              value: doanhnghiepso.digigov.vn
           volumeMounts:
             - name: frappe-sites
               mountPath: /home/frappe/frappe-bench/sites
           resources:
             requests:
               cpu: "100m"
-              memory: "256Mi"
+              memory: "512Mi"
             limits:
               cpu: "300m"
-              memory: "512Mi"
+              memory: "2Gi"
+          readinessProbe:
+            tcpSocket:
+              port: 9000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: 9000
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 1
+            failureThreshold: 5
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
       volumes:
         - name: frappe-sites
           persistentVolumeClaim:

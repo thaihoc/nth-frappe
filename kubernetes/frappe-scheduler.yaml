@@ -12,25 +12,37 @@ spec:
       labels:
         app: frappe-scheduler
     spec:
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: frappe-scheduler
-          image: frappe:15
+          image: ecr.digigov.vn/dns/frappe:16rc1
           command:
             - bench
             - schedule
           env:
             - name: SITE_NAME
-              value: doanhnghiep.vn
+              value: doanhnghiepso.digigov.vn
           volumeMounts:
             - name: frappe-sites
               mountPath: /home/frappe/frappe-bench/sites
           resources:
             requests:
               cpu: "100m"
-              memory: "256Mi"
+              memory: "512Mi"
             limits:
               cpu: "300m"
-              memory: "512Mi"
+              memory: "1Gi"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
       volumes:
         - name: frappe-sites
           persistentVolumeClaim:

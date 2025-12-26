@@ -44,7 +44,7 @@ podman run -d \
   --name redis-cache \
   --network frappe \
   -p 6379:6379 \
-  docker.io/library/redis:7 \
+  docker.io/library/redis:7.2 \
   --maxmemory 256mb \
   --maxmemory-policy allkeys-lru
 ```
@@ -61,7 +61,7 @@ podman run -d \
   --network frappe \
   -p 6380:6379 \
   -v redis-queue-data:/data \
-  docker.io/library/redis:7 \
+  docker.io/library/redis:7.2 \
   --maxmemory 512mb \
   --maxmemory-policy noeviction
 ```
@@ -73,7 +73,7 @@ podman run -d \
   --name redis-socketio \
   --network frappe \
   -p 6381:6379 \
-  docker.io/library/redis:7 \
+  docker.io/library/redis:7.2 \
   --maxmemory 128mb \
   --maxmemory-policy allkeys-lru
 ```
@@ -180,14 +180,6 @@ podman run -d \
 
 Như vậy là bạn đã cài đặt thành công. Truy cập vào đường dẫn `http://doanhnghiep.vn:8080` để sử dụng.
 
-## Tham khảo
-
-Frappe HR Docker Compose: https://github.com/frappe/hrms/tree/develop/docker
-
-Frappe Docker: https://github.com/frappe/frappe_docker
-
-Frappe Framework Configuration: https://docs.frappe.io/framework/v15/user/en/basics/site_config
-
 ## Mẹo xử lý
 
 Thiết lập lại site
@@ -201,8 +193,8 @@ podman volume rm frappe-sites
 Xử lý lỗi user host scope
 
 ```sql
-SELECT User, Host FROM mysql.user WHERE User='_3d29114af46bf1a6';
-DROP USER '_3d29114af46bf1a6'@'10.89.1.24';
-CREATE USER '_3d29114af46bf1a6'@'%' IDENTIFIED BY 'NZIZnzx2P0DCevk6'
-GRANT ALL PRIVILEGES ON _3d29114af46bf1a6.* TO '_3d29114af46bf1a6'@'%';GRANsql
+SELECT User, Host FROM mysql.user WHERE User='_b108b689faff8469';
+DROP USER '_b108b689faff8469'@'10.42.7.59';
+CREATE USER '_b108b689faff8469'@'%' IDENTIFIED BY 'tIcdQYGtEpjCr5BP';
+GRANT ALL PRIVILEGES ON _b108b689faff8469.* TO '_b108b689faff8469'@'%';
 ```

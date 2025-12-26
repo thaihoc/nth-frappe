@@ -11,4 +11,10 @@ Cài đặt trên Podman: [Podman installation](docs/podman-installation.md)
 
 Cài đặt trên K8s: [Kubernetes installation](docs/k8s-installation.md)
 
+## Tham khảo
 
+Frappe HR Docker Compose: https://github.com/frappe/hrms/tree/develop/docker
+
+Frappe Docker: https://github.com/frappe/frappe_docker
+
+Frappe Framework Configuration: https://docs.frappe.io/framework/v15/user/en/basics/site_config

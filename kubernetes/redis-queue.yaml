@@ -49,11 +49,11 @@ spec:
               mountPath: /data
           resources:
             requests:
-              cpu: "100m"
-              memory: "256Mi"
-            limits:
-              cpu: "300m"
+              cpu: "200m"
               memory: "512Mi"
+            limits:
+              cpu: "600m"
+              memory: "1Gi"
           livenessProbe:
             tcpSocket:
               port: 6379

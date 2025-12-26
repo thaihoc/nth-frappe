@@ -12,40 +12,58 @@ spec:
       labels:
         app: frappe-web
     spec:
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: frappe-web
-          image: frappe:15
+          image: ecr.digigov.vn/dns/frappe:16rc1
           ports:
             - containerPort: 8000
           env:
             - name: SITE_NAME
-              value: doanhnghiep.vn
+              value: doanhnghiepso.digigov.vn
           volumeMounts:
             - name: frappe-sites
               mountPath: /home/frappe/frappe-bench/sites
           readinessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: 8000
-            initialDelaySeconds: 15
+            initialDelaySeconds: 20
             periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
           livenessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: 8000
-            initialDelaySeconds: 30
-            periodSeconds: 10
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            timeoutSeconds: 1
+            failureThreshold: 5
           resources:
             requests:
               cpu: "200m"
               memory: "512Mi"
             limits:
               cpu: "500m"
-              memory: "1Gi"
+              memory: "2Gi"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
       volumes:
         - name: frappe-sites
           persistentVolumeClaim:
             claimName: frappe-sites-pvc
+      hostAliases:
+      - ip: 127.0.0.1
+        hostnames:
+          - doanhnghiepso.digigov.vn
 ---
 apiVersion: v1
 kind: Service

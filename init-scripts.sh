@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Starting Frappe HRMS init (Frappe v15)"
+echo "Starting Frappe apps init (Frappe v15)"
 
 BENCH_DIR="/home/frappe/frappe-bench"
 SITES_DIR="$BENCH_DIR/sites"
@@ -33,6 +33,8 @@ cat > "$SITES_DIR/common_site_config.json" <<EOF
   "db_user_host_login_scope": "%"
 }
 EOF
+
+ls -1 apps > sites/apps.txt
 
 # Create site if it does not exist
 if [ ! -d "$SITES_DIR/$SITE_NAME" ]; then
@@ -71,4 +73,4 @@ bench --site "$SITE_NAME" migrate
 echo "Clearing cache"
 bench --site "$SITE_NAME" clear-cache
 
-echo "Frappe HRMS init completed"
+echo "Frappe apps init completed"
