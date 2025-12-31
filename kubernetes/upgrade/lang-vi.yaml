@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: frappe-vi-lang-upgrade
+  labels:
+    site: dn.digigov.vn
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      restartPolicy: Never
+      containers:
+        - name: frappe-init
+          image: alpine
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo "==> Download vi.po"
+              VI_SOURCE="https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/resources/vi.po"
+              VI_DEST="/home/frappe/frappe-bench/apps/frappe/frappe/locale/vi.po"
+              curl -fsSL "$VI_SOURCE" -o "$VI_DEST"
+              echo "==> Compile vi.po to vi.mo"
+              bench compile-translations
+              echo "==> Clear cache"
+              bench clear-cache
+              bench clear-website-cache
+              echo "==> Restart bench"
+              bench restart
+          volumeMounts:
+            - name: frappe-sites
+              mountPath: /home/frappe/frappe-bench/sites
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+      volumes:
+        - name: frappe-sites
+          persistentVolumeClaim:
+            claimName: frappe-sites-pvc
