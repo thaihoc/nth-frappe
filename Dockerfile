@@ -13,7 +13,7 @@ RUN if [ -n "${APPS_JSON_BASE64}" ]; then \
   fi
 
 COPY --chmod=755 --chown=frappe:frappe init-scripts.sh /opt/frappe/init-scripts.sh
-COPY --chmod=755 --chown=frappe:frappe vi.po /opt/frappe/vi.po
+COPY --chmod=755 --chown=frappe:frappe resources/vi.po /opt/frappe/vi.po
 
 USER frappe
 

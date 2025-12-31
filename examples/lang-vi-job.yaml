@@ -16,7 +16,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: frappe-init
-          image: alpine
+          image: ecr.digigov.vn/dns/frappe:16rc1
           imagePullPolicy: IfNotPresent
           command: ["/bin/sh", "-c"]
           args:
@@ -25,13 +25,7 @@ spec:
               VI_SOURCE="https://raw.githubusercontent.com/thaihoc/nth-frappe/refs/heads/main/resources/vi.po"
               VI_DEST="/home/frappe/frappe-bench/apps/frappe/frappe/locale/vi.po"
               curl -fsSL "$VI_SOURCE" -o "$VI_DEST"
-              echo "==> Compile vi.po to vi.mo"
-              bench compile-translations
-              echo "==> Clear cache"
-              bench clear-cache
-              bench clear-website-cache
-              echo "==> Restart bench"
-              bench restart
+              cat /home/frappe/frappe-bench/apps/frappe/frappe/locale/vi.po
           volumeMounts:
             - name: frappe-sites
               mountPath: /home/frappe/frappe-bench/sites
