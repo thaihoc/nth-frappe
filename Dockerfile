@@ -41,6 +41,8 @@ USER frappe
 COPY --from=builder --chown=frappe:frappe /home/frappe/frappe-bench /home/frappe/frappe-bench
 COPY --from=builder /opt/frappe/init-scripts.sh /opt/frappe/init-scripts.sh
 
+RUN bench compile-po-to-mo --app frappe --locale vi --force
+
 WORKDIR /home/frappe/frappe-bench
 
 VOLUME [ \
