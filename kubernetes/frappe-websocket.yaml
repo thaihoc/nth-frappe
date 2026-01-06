@@ -19,7 +19,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: frappe-websocket
-          image: ecr.digigov.vn/dns/frappe:16rc1
+          image: ecr.digigov.vn/dns/frappe:16rc1-20260105
           command:
             - node
             - /home/frappe/frappe-bench/apps/frappe/socketio.js
@@ -62,7 +62,7 @@ spec:
       volumes:
         - name: frappe-sites
           persistentVolumeClaim:
-            claimName: frappe-sites-pvc
+            claimName: frappe-sites
 ---
 apiVersion: v1
 kind: Service

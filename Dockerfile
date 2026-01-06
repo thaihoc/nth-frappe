@@ -13,7 +13,6 @@ RUN if [ -n "${APPS_JSON_BASE64}" ]; then \
   fi
 
 COPY --chmod=755 --chown=frappe:frappe init-scripts.sh /opt/frappe/init-scripts.sh
-COPY --chmod=755 --chown=frappe:frappe resources/vi.po /opt/frappe/vi.po
 
 USER frappe
 
@@ -33,7 +32,7 @@ RUN export APP_INSTALL_ARGS="" && \
   echo "{}" > sites/common_site_config.json && \
   find apps -mindepth 1 -path "*/.git" | xargs rm -fr
 
-COPY /opt/frappe/vi.po /home/frappe/frappe-bench/apps/frappe/frappe/locale
+COPY resources/vi.po /home/frappe/frappe-bench/apps/frappe/frappe/locale
 
 FROM frappe/base:${FRAPPE_BRANCH} AS backend
 

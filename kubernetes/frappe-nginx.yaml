@@ -19,7 +19,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: frappe-nginx
-          image: ecr.digigov.vn/dns/frappe:16rc1
+          image: ecr.digigov.vn/dns/frappe:16rc1-20260105
           command:
             - nginx-entrypoint.sh
           ports:
@@ -73,7 +73,7 @@ spec:
       volumes:
         - name: frappe-sites
           persistentVolumeClaim:
-            claimName: frappe-sites-pvc
+            claimName: frappe-sites
       hostAliases:
       - ip: 127.0.0.1
         hostnames:

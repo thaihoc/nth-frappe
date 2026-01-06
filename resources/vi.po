@@ -1,3 +1,6 @@
+msgid ""
+msgstr "Language: vi\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\n"
+
 msgid "A4"
 msgstr "A4"
 
@@ -14474,25 +14477,25 @@ msgid "Aerospace"
 msgstr "Hàng không vũ trụ"
 
 msgid "Against"
-msgstr "Chống lại"
+msgstr "Đối với"
 
 msgid "Against Account"
 msgstr "Đối với tài khoản"
 
 msgid "Against Journal Entry {0} does not have any unmatched {1} entry"
-msgstr "Chống Journal nhập {0} không có bất kỳ chưa từng có {1} nhập"
+msgstr "Bút toán nhật ký {0} không có mục {1} nào chưa khớp"
 
 msgid "Against Journal Entry {0} is already adjusted against some other voucher"
-msgstr "Chống Journal nhập {0} đã được điều chỉnh đối với một số chứng từ khác"
+msgstr "Bút toán nhật ký {0} đã được điều chỉnh với một chứng từ khác"
 
 msgid "Against Supplier Invoice {0} dated {1}"
 msgstr "Gắn với hóa đơn NCC {0} ngày {1}"
 
 msgid "Against Voucher"
-msgstr "Chống lại Voucher"
+msgstr "Theo chứng từ"
 
 msgid "Against Voucher Type"
-msgstr "Loại chống lại Voucher"
+msgstr "Loại chứng từ"
 
 msgid "Age"
 msgstr "Tuổi"
@@ -15089,7 +15092,7 @@ msgid "Black"
 msgstr "Đen"
 
 msgid "Blanket Orders from Costumers."
-msgstr "Đơn đặt hàng chăn từ Costumers."
+msgstr "Đơn hàng khung từ khách hàng."
 
 msgid "Block Invoice"
 msgstr "Chặn hóa đơn"
@@ -15365,7 +15368,7 @@ msgid "Cash In Hand"
 msgstr "Tiền mặt trong tay"
 
 msgid "Cash or Bank Account is mandatory for making payment entry"
-msgstr "Tiền mặt hoặc tài khoản ngân hàng là bắt buộc đối với việc nhập cảnh thanh toán"
+msgstr "Tiền mặt hoặc tài khoản ngân hàng là bắt buộc để tạo bút toán thanh toán"
 
 msgid "Cashier Closing"
 msgstr "Đóng thủ quỹ"
@@ -16280,7 +16283,7 @@ msgid "Discount"
 msgstr "Giảm giá"
 
 msgid "Discount Percentage can be applied either against a Price List or for all Price List."
-msgstr "Tỷ lệ phần trăm giảm giá có thể được áp dụng hoặc chống lại một danh sách giá hay cho tất cả Bảng giá."
+msgstr "Tỷ lệ phần trăm giảm giá có thể được áp dụng cho một Bảng giá hoặc cho tất cả Bảng giá."
 
 msgid "Discount must be less than 100"
 msgstr "Giảm giá phải được ít hơn 100"
@@ -16727,7 +16730,7 @@ msgid "Finished Goods"
 msgstr "Hoàn thành Hàng"
 
 msgid "Finished Item {0} must be entered for Manufacture type entry"
-msgstr "Hoàn thành mục {0} phải được nhập cho loại Sản xuất nhập cảnh"
+msgstr "Mặt hàng thành phẩm {0} phải được nhập cho bút toán loại Sản xuất"
 
 msgid "Finished product quantity <b>{0}</b> and For Quantity <b>{1}</b> cannot be different"
 msgstr "Số lượng sản phẩm hoàn thành <b>{0}</b> và Số lượng <b>{1}</b> không thể khác nhau"
@@ -16814,7 +16817,7 @@ msgid "For row {0}: Enter Planned Qty"
 msgstr "Đối với hàng {0}: Nhập số lượng dự kiến"
 
 msgid "For {0}, only credit accounts can be linked against another debit entry"
-msgstr "Đối với {0}, tài khoản có chỉ có thể được liên kết chống lại mục nợ khác"
+msgstr "Đối với {0}, chỉ tài khoản có mới có thể được liên kết với một bút toán nợ khác"
 
 msgid "For {0}, only debit accounts can be linked against another credit entry"
 msgstr "Đối với {0}, chỉ tài khoản ghi nợ có thể được liên kết với mục nợ khác"
@@ -17354,7 +17357,7 @@ msgid "Invalid Attribute"
 msgstr "Thuộc tính không hợp lệ"
 
 msgid "Invalid Blanket Order for the selected Customer and Item"
-msgstr "Thứ tự chăn không hợp lệ cho Khách hàng và mục đã chọn"
+msgstr "Đơn hàng khung không hợp lệ cho Khách hàng và mặt hàng đã chọn"
 
 msgid "Invalid Company for Inter Company Transaction."
 msgstr "Công ty không hợp lệ cho giao dịch công ty liên."
@@ -18482,7 +18485,7 @@ msgid "Notify Customers via Email"
 msgstr "Thông báo Khách hàng qua Email"
 
 msgid "Number of Depreciations Booked cannot be greater than Total Number of Depreciations"
-msgstr "Số khấu hao Thẻ vàng không thể lớn hơn Tổng số khấu hao"
+msgstr "Số khấu hao đã ghi sổ không thể lớn hơn Tổng Số khấu hao"
 
 msgid "Number of Interaction"
 msgstr "Số lần tương tác"
@@ -19340,7 +19343,7 @@ msgid "Please set Hotel Room Rate on {}"
 msgstr "Vui lòng đặt Giá phòng khách sạn vào {}"
 
 msgid "Please set Number of Depreciations Booked"
-msgstr "Hãy thiết lập Số khấu hao Thẻ vàng"
+msgstr "Vui lòng đặt Số khấu hao đã ghi sổ"
 
 msgid "Please set Unrealized Exchange Gain/Loss Account in Company {0}"
 msgstr "Vui lòng đặt Tài khoản lãi / lỗ chưa thực hiện trong Công ty {0}"
@@ -20417,7 +20420,7 @@ msgid "Row {0}: UOM Conversion Factor is mandatory"
 msgstr "Hàng {0}: Nhân tố thay đổi UOM là bắt buộc"
 
 msgid "Row {0}: select the workstation against the operation {1}"
-msgstr "Hàng {0}: chọn máy trạm chống lại hoạt động {1}"
+msgstr "Hàng {0}: chọn máy trạm cho công đoạn {1}"
 
 msgid "Row {0}: {1} Serial numbers required for Item {2}. You have provided {3}."
 msgstr "Hàng {0}: {1} Số sêri cần có cho mục {2}. Bạn đã cung cấp {3}."
@@ -21758,7 +21761,7 @@ msgid "This is based on transactions against this Customer. See timeline below f
 msgstr "Điều này được dựa trên các giao dịch với khách hàng này. Xem dòng thời gian dưới đây để biết chi tiết"
 
 msgid "This is based on transactions against this Healthcare Practitioner."
-msgstr "Điều này dựa trên các giao dịch chống lại Chuyên viên Y tế này."
+msgstr "Điều này dựa trên các giao dịch liên quan đến Chuyên viên Y tế này."
 
 msgid "This is based on transactions against this Patient. See timeline below for details"
 msgstr "Điều này dựa trên các giao dịch đối với Bệnh nhân này. Xem dòng thời gian bên dưới để biết chi tiết"
@@ -21956,7 +21959,7 @@ msgid "Total Order Considered"
 msgstr "Tổng số đơn hàng được xem xét"
 
 msgid "Total Order Value"
-msgstr "Tổng giá trị theo thứ tự"
+msgstr "Tổng giá trị đơn hàng"
 
 msgid "Total Outgoing"
 msgstr "Tổng số đầu ra"
@@ -22013,7 +22016,7 @@ msgid "Total Weightage of all Assessment Criteria must be 100%"
 msgstr "Tổng trọng lượng của tất cả các tiêu chí đánh giá phải là 100%"
 
 msgid "Total advance ({0}) against Order {1} cannot be greater than the Grand Total ({2})"
-msgstr "Tổng số trước ({0}) chống lại thứ tự {1} không thể lớn hơn Tổng cộng ({2})"
+msgstr "Tổng tạm ứng ({0}) cho đơn hàng {1} không thể lớn hơn Tổng cộng ({2})"
 
 msgid "Total advance amount cannot be greater than total claimed amount"
 msgstr "Tổng số tiền tạm ứng không được lớn hơn tổng số tiền đã yêu cầu"
@@ -23126,7 +23129,7 @@ msgid "Appointment Booking"
 msgstr "Đặt hẹn"
 
 msgid "As there are existing transactions against item {0}, you can not change the value of {1}"
-msgstr "Như có những giao dịch hiện tại chống lại {0} mục, bạn không thể thay đổi giá trị của {1}"
+msgstr "Vì đã có các giao dịch liên quan đến mặt hàng {0}, bạn không thể thay đổi giá trị của {1}"
 
 msgid "Asset Id"
 msgstr "Id tài sản"
@@ -27737,7 +27740,7 @@ msgid "Allow Monthly Depreciation"
 msgstr "Cho phép khấu hao hàng tháng"
 
 msgid "Number of Depreciations Booked"
-msgstr "Số khấu hao Thẻ Vàng"
+msgstr "Số khấu hao đã ghi sổ"
 
 msgid "Finance Books"
 msgstr "Sách Tài chính"
@@ -28127,13 +28130,13 @@ msgid "Supplier Quotation Item"
 msgstr "Mục Báo giá của NCC"
 
 msgid "Against Blanket Order"
-msgstr "Chống lại trật tự chăn"
+msgstr "Theo đơn hàng khung"
 
 msgid "Blanket Order"
-msgstr "Thứ tự chăn"
+msgstr "Đơn hàng khung"
 
 msgid "Blanket Order Rate"
-msgstr "Tỷ lệ đặt hàng chăn"
+msgstr "Tỷ lệ đơn hàng khung"
 
 msgid "Returned Qty"
 msgstr "Số lượng trả lại"
@@ -31505,7 +31508,7 @@ msgid "Order Type"
 msgstr "Loại đặt hàng"
 
 msgid "Blanket Order Item"
-msgstr "Mục đặt hàng chăn"
+msgstr "Mặt hàng đơn hàng khung"
 
 msgid "Ordered Quantity"
 msgstr "Số lượng đặt hàng"
@@ -31538,7 +31541,7 @@ msgid "Manage cost of operations"
 msgstr "Quản lý chi phí hoạt động"
 
 msgid "Transfer Material Against"
-msgstr "Chuyển vật liệu chống lại"
+msgstr "Chuyển vật liệu theo"
 
 msgid "Routing"
 msgstr "Routing"
@@ -33035,10 +33038,10 @@ msgid "Quotation Item"
 msgstr "Báo giá mẫu hàng"
 
 msgid "Against Doctype"
-msgstr "Chống lại DOCTYPE"
+msgstr "Loại tài liệu"
 
 msgid "Against Docname"
-msgstr "Chống lại Docname"
+msgstr "Tên tài liệu"
 
 msgid "Additional Notes"
 msgstr "Ghi chú bổ sung"
@@ -33317,7 +33320,7 @@ msgid "Unrealized Exchange Gain/Loss Account"
 msgstr "Tài khoản Gain / Loss chưa thực hiện"
 
 msgid "Allow Account Creation Against Child Company"
-msgstr "Cho phép tạo tài khoản chống lại công ty con"
+msgstr "Cho phép tạo tài khoản Cho công ty con"
 
 msgid "Default Payable Account"
 msgstr "Mặc định Account Payable"
@@ -34874,10 +34877,10 @@ msgid "Subcontracted Item"
 msgstr "Mục hợp đồng phụ"
 
 msgid "Against Stock Entry"
-msgstr "Chống nhập cảnh"
+msgstr "Theo bút toán kho"
 
 msgid "Stock Entry Child"
-msgstr "Nhập cảnh trẻ em"
+msgstr "Chi tiết bút toán kho"
 
 msgid "PO Supplied Item"
 msgstr "PO cung cấp mặt hàng"
@@ -35906,7 +35909,7 @@ msgid "Closing Amount"
 msgstr "Số tiền đóng"
 
 msgid "POS Closing Entry Taxes"
-msgstr "Thuế Nhập cảnh Đóng POS"
+msgstr "Thuế bút toán Đóng POS"
 
 msgid "POS Invoice"
 msgstr "Hóa đơn POS"
@@ -37724,7 +37727,7 @@ msgid "Subscription End Date is mandatory to follow calendar months"
 msgstr "Ngày kết thúc đăng ký là bắt buộc theo tháng theo lịch"
 
 msgid "Row #{}: POS Invoice {} is not against customer {}"
-msgstr "Hàng # {}: Hóa đơn POS {} không chống lại khách hàng {}"
+msgstr "Hàng #{}: Hóa đơn POS {} không thuộc về khách Hàng {}"
 
 msgid "Row #{}: POS Invoice {} is not submitted yet"
 msgstr "Hàng # {}: Hóa đơn POS {} chưa được gửi"
@@ -38324,10 +38327,10 @@ msgid "Drug Name"
 msgstr "Tên thuốc"
 
 msgid "Against Inpatient Medication Order"
-msgstr "Chống lại Đơn đặt hàng Thuốc Nội trú"
+msgstr "Theo Đơn đặt hàng Thuốc Nội trú"
 
 msgid "Against Inpatient Medication Order Entry"
-msgstr "Chống lại đơn đặt hàng thuốc nội trú"
+msgstr "Theo mục nhập đơn đặt hàng thuốc nội trú"
 
 msgid "Inpatient Medication Order"
 msgstr "Đơn đặt hàng Thuốc nội trú"
@@ -38405,7 +38408,7 @@ msgid "Select Items"
 msgstr "Chọn các mục"
 
 msgid "Against Default Supplier"
-msgstr "Chống lại nhà cung cấp mặc định"
+msgstr "Theo nhà cung cấp mặc định"
 
 msgid "Auto close Opportunity after the no. of days mentioned above"
 msgstr "Tự động đóng Cơ hội sau khi không. trong những ngày nói trên"
@@ -38654,7 +38657,7 @@ msgid "No Inpatient Record found against patient {0}"
 msgstr "Không tìm thấy hồ sơ bệnh nhân nội trú nào đối với bệnh nhân {0}"
 
 msgid "An Inpatient Medication Order {0} against Patient Encounter {1} already exists."
-msgstr "Đơn đặt hàng Thuốc cho Bệnh nhân Nội trú {0} chống lại Cuộc Gặp gỡ Bệnh nhân {1} đã tồn tại."
+msgstr "Đã tồn tại Đơn đặt hàng Thuốc Nội trú {0} cho Cuộc Gặp gỡ Bệnh nhân {1}."
 
 msgid "Allow In Returns"
 msgstr "Cho phép Trả hàng"
@@ -39036,9 +39039,6 @@ msgstr "Tán thành"
 
 msgid "Reject"
 msgstr "Từ chối"
-
-msgid ""
-msgstr "Language: vi\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\n"
 
 msgid "# In Stock"
 msgstr "Số lượng trong kho"
@@ -41483,7 +41483,7 @@ msgid "Blank Line"
 msgstr "Dòng trống"
 
 msgid "Blanket Order Allowance (%)"
-msgstr "Biên độ Đơn hàng khung (%)"
+msgstr "Mức cho phép Đơn hàng khung (%)"
 
 msgid "Bold Text"
 msgstr "Chữ đậm"
@@ -57360,4 +57360,3 @@ msgstr "{} {} đã được liên kết với {} {}"
 
 msgid "{} {} is not affecting bank account {}"
 msgstr "{} {} không ảnh hưởng đến tài khoản ngân hàng {}"
-

@@ -1,41 +1,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frappe-scheduler
+  name: frappe-migrate-pv
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frappe-scheduler
+      app: frappe-migrate-pv
   template:
     metadata:
       labels:
-        app: frappe-scheduler
+        app: frappe-migrate-pv
     spec:
+      nodeName: w4
       securityContext:
         runAsNonRoot: true
         fsGroup: 1000
         seccompProfile:
           type: RuntimeDefault
       containers:
-        - name: frappe-scheduler
+        - name: frappe-web
           image: ecr.digigov.vn/dns/frappe:16rc1-20260105
           command:
-            - bench
-            - schedule
-          env:
-            - name: SITE_NAME
-              value: doanhnghiepso.digigov.vn
+            - sh
+            - -c
+            - |
+              set -e
+              echo "Start migrating data..."
+              cp -a /opt/frappe/old/. /opt/frappe/new/
+              echo "Migration done"
+          ports:
+            - containerPort: 80
           volumeMounts:
-            - name: frappe-sites
-              mountPath: /home/frappe/frappe-bench/sites
+            - name: old
+              mountPath: /opt/frappe/old
+            - name: new
+              mountPath: /opt/frappe/new
           resources:
             requests:
-              cpu: "100m"
+              cpu: "200m"
               memory: "512Mi"
             limits:
-              cpu: "300m"
-              memory: "1Gi"
+              cpu: "500m"
+              memory: "2Gi"
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
@@ -44,6 +51,9 @@ spec:
               drop:
                 - ALL
       volumes:
-        - name: frappe-sites
+        - name: old
+          persistentVolumeClaim:
+            claimName: frappe-sites-pvc
+        - name: new
           persistentVolumeClaim:
             claimName: frappe-sites

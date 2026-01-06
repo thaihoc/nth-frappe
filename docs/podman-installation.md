@@ -193,8 +193,8 @@ podman volume rm frappe-sites
 Xử lý lỗi user host scope
 
 ```sql
-SELECT User, Host FROM mysql.user WHERE User='_b108b689faff8469';
-DROP USER '_b108b689faff8469'@'10.42.7.59';
-CREATE USER '_b108b689faff8469'@'%' IDENTIFIED BY 'tIcdQYGtEpjCr5BP';
-GRANT ALL PRIVILEGES ON _b108b689faff8469.* TO '_b108b689faff8469'@'%';
+SELECT User, Host FROM mysql.user WHERE User='_1f769b29284f5cab';
+DROP USER '_1f769b29284f5cab'@'10.42.7.26';
+CREATE USER '_1f769b29284f5cab'@'%' IDENTIFIED BY 'iXLyJbHC8BnOMxRX';
+GRANT ALL PRIVILEGES ON _1f769b29284f5cab.* TO '_1f769b29284f5cab'@'%';
 ```

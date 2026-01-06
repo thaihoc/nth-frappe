@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pvc-migrate-frappe-apps
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      nodeName: w4
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      restartPolicy: OnFailure
+      containers:
+        - name: migrate
+          image: ecr.digigov.vn/dns/frappe:16rc1-20260105
+          command:
+            - sh
+            - -c
+            - |
+              set -e
+              echo "Start migrating data..."
+              cp -a /opt/frappe/old/. /opt/frappe/new/
+              echo "Migration done"
+              /opt/bitnami/scripts/nginx/run.sh
+          volumeMounts:
+            - name: old
+              mountPath: /opt/frappe/old
+            - name: new
+              mountPath: /opt/frappe/new
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+      volumes:
+        - name: old
+          persistentVolumeClaim:
+            claimName: frappe-sites-pvc
+        - name: new
+          persistentVolumeClaim:
+            claimName: frappe-apps

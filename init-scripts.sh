@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Starting Frappe apps init (Frappe v15)"
+echo "Starting Frappe apps init"
 
 BENCH_DIR="/home/frappe/frappe-bench"
 SITES_DIR="$BENCH_DIR/sites"
@@ -44,7 +44,8 @@ if [ ! -d "$SITES_DIR/$SITE_NAME" ]; then
     --admin-password "$ADMIN_PASSWORD" \
     --mariadb-root-password "$DB_ROOT_PASSWORD" \
     --db-host "$DB_HOST" \
-    --db-port "$DB_PORT"
+    --db-port "$DB_PORT" \
+    --db-user-host-login-scope="%"
 else
   echo "Site already exists: $SITE_NAME"
 fi
